@@ -1,0 +1,107 @@
+[
+  {
+    "title": "Canal View Prinsengracht",
+    "description": "Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.",
+    "date": 65654654,
+    "city": {
+      "name": "Paris",
+      "location": {
+        "latitude": 48.85661,
+        "longitude": 2.351499,
+        "zoom": 13
+      }
+    },
+    "preview_image": "https://8.react.pages.academy/static/hotel/13.jpg",
+    "images": [
+      "https://8.react.pages.academy/static/hotel/13.jpg",
+      "https://8.react.pages.academy/static/hotel/15.jpg",
+      "https://8.react.pages.academy/static/hotel/12.jpg",
+      "https://8.react.pages.academy/static/hotel/8.jpg",
+      "https://8.react.pages.academy/static/hotel/2.jpg",
+      "https://8.react.pages.academy/static/hotel/3.jpg"
+    ],
+    "is_premium": false,
+    "rating": 4.1,
+    "type": "room",
+    "bedrooms": 1,
+    "max_adults": 2,
+    "price": 119,
+    "goods": [
+      "Laptop friendly workspace",
+      "Dishwasher",
+      "Air conditioning",
+      "Baby seat",
+      "Washing machine",
+      "Towels",
+      "Coffee machine",
+      "Fridge",
+      "Washer",
+      "Breakfast"
+    ],
+    "host": {
+      "id": 25,
+      "name": "Angelina",
+      "is_pro": true,
+      "avatar_url": "img/avatar-angelina.jpg"
+    },
+    "comments_qty": 6,
+    "location": {
+      "latitude": 48.84461,
+      "longitude": 2.374499,
+      "zoom": 16
+    },
+    "id": 1
+  },
+  {
+    "title": "Penthouse, 4-5 rooms + 5 balconies",
+    "description": "I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!",
+    "date": 54654234501001,
+    "city": {
+      "name": "Paris",
+      "location": {
+        "latitude": 48.85661,
+        "longitude": 2.351499,
+        "zoom": 13
+      }
+    },
+    "preview_image": "https://8.react.pages.academy/static/hotel/12.jpg",
+    "images": [
+      "https://8.react.pages.academy/static/hotel/20.jpg",
+      "https://8.react.pages.academy/static/hotel/6.jpg",
+      "https://8.react.pages.academy/static/hotel/5.jpg",
+      "https://8.react.pages.academy/static/hotel/15.jpg",
+      "https://8.react.pages.academy/static/hotel/16.jpg",
+      "https://8.react.pages.academy/static/hotel/3.jpg"
+    ],
+    "is_premium": false,
+    "rating": 4.6,
+    "type": "hotel",
+    "bedrooms": 5,
+    "max_adults": 9,
+    "price": 258,
+    "goods": [
+      "Breakfast",
+      "Washer",
+      "Towels",
+      "Baby seat",
+      "Coffee machine",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Dishwasher",
+      "Fridge"
+    ],
+    "host": {
+      "id": 25,
+      "name": "Angelina",
+      "is_pro": true,
+      "avatar_url": "img/avatar-angelina.jpg"
+    },
+    "comments_qty": 2,
+    "location": {
+      "latitude": 48.877610000000004,
+      "longitude": 2.333499,
+      "zoom": 16
+    },
+    "id": 2
+  }
+]
