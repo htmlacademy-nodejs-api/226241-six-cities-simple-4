@@ -1,19 +1,19 @@
-import { CliCommandInterface } from '../core/cli-command/cli-command.interface';
+import { ICliCommand } from "../core/cli-command/cli-command.interface";
 
 type ParsedCommand = {
-  [key: string]: string[]
-}
+  [key: string]: string[];
+};
 
 export default class CLIApplication {
-  private commands: {[propertyName: string]: CliCommandInterface} = {};
-  private defaultCommand = '--help';
+  private commands: { [propertyName: string]: ICliCommand } = {};
+  private defaultCommand = "--help";
 
   private parseCommand(cliArguments: string[]): ParsedCommand {
     const parsedCommand: ParsedCommand = {};
-    let command = '';
+    let command = "";
 
     return cliArguments.reduce((acc, item) => {
-      if (item.startsWith('--')) {
+      if (item.startsWith("--")) {
         acc[item] = [];
         command = item;
       } else if (command && item) {
@@ -24,7 +24,7 @@ export default class CLIApplication {
     }, parsedCommand);
   }
 
-  public getCommand(commandName: string): CliCommandInterface {
+  public getCommand(commandName: string): ICliCommand {
     return this.commands[commandName] ?? this.commands[this.defaultCommand];
   }
 
@@ -36,12 +36,11 @@ export default class CLIApplication {
     command.execute(...commandArguments);
   }
 
-  public registerCommands(commandList: CliCommandInterface[]): void {
+  public registerCommands(commandList: ICliCommand[]): void {
     commandList.reduce((acc, command) => {
       const cliCommand = command;
       acc[cliCommand.name] = cliCommand;
       return acc;
     }, this.commands);
   }
-
 }
