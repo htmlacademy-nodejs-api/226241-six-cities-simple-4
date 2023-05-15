@@ -1,7 +1,7 @@
-import { CliCommandInterface } from './cli-command.interface.js';
+import { ICliCommand } from "./cli-command.interface.js";
 
-export default class HelpCommand implements CliCommandInterface {
-  public readonly name = '--help';
+export default class HelpCommand implements ICliCommand {
+  public readonly name = "--help";
 
   public async execute(): Promise<void> {
     console.log(`
