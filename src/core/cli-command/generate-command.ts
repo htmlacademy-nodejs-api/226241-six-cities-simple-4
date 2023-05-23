@@ -1,12 +1,12 @@
 import got from "got";
-import { ICliCommand } from "./cli-command.interface.js";
-import { TMockData } from "../../types/mock-data";
+import { CliCommandInterface } from "./cli-command.interface.js";
+import { MockDataType } from "../../types/mock-data";
 import OfferGenerator from "../../modules/offer-generator/offer-generator.js";
 import TSVFileWriter from "../file-writer/tsv-file-writer.js";
 
-export default class GenerateCommand implements ICliCommand {
+export default class GenerateCommand implements CliCommandInterface {
   public readonly name = "--generate";
-  private initialData!: TMockData;
+  private initialData!: MockDataType;
 
   public async execute(...parameters: string[]): Promise<void> {
     const [count, filepath, url] = parameters;
