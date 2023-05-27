@@ -1,26 +1,25 @@
-export interface IOffer {
+export interface OfferInterface {
   title: string;
   description: string;
   postDate: Date;
-  city: ICity;
-  preview_image: string;
+  city: CityInterface;
+  previewImage: string;
   images: string[];
-  is_premium: boolean;
+  isPremium: boolean;
   rating: number;
-  type: TOfferTypes;
+  type: OfferTypesType;
   bedrooms: number;
-  max_adults: number;
+  maxAdults: number;
   price: number;
-  goods: TGoods[];
-  host: IUser;
-  comments_qty: number;
-  location: ILocation;
-  id: string;
+  goods: GoodsType[];
+  host: UserInteface;
+  commentsQty: number;
+  location: LocationInterface;
 }
 
-export type TOfferTypes = "apartment" | "house" | "room" | "hotel";
+export type OfferTypesType = "apartment" | "house" | "room" | "hotel";
 
-export type TGoods =
+export type GoodsType =
   | "Breakfast"
   | "Air conditioning"
   | "Laptop friendly workspace"
@@ -29,20 +28,19 @@ export type TGoods =
   | "Towels"
   | "Fridge";
 
-export interface ICity {
+export interface CityInterface {
   name: string;
-  location: ILocation;
+  location: LocationInterface;
 }
 
-export interface ILocation {
+export interface LocationInterface {
   latitude: number;
   longitude: number;
-  zoom: number;
 }
 
-export interface IUser {
-  id: string;
+export interface UserInteface {
+  email: string;
   name: string;
-  is_pro: boolean;
-  avatar_url: string;
+  isPro: boolean;
+  avatarUrl: string;
 }

@@ -54,7 +54,6 @@
       "Canal View Prinsengracht",
       "House in countryside",
       "Nice, cozy, warm big bed apartment",
-      "Penthouse",
       "4-5 rooms + 5 balconies",
       "Perfectly located Castro",
       "The Pondhouse - A Magical Place",
@@ -82,6 +81,37 @@
       "Towels",
       "Fridge"
     ],
-    "img_url": "https://8.react.pages.academy/static/hotel/"
+    "img_url": "https://8.react.pages.academy/static/hotel/",
+    "users": [
+      "Иван Иванов",
+      "Олег Сидоров",
+      "Пьер Безухов",
+      "Роланд Дискейн",
+      "Холи Гибни",
+      "Джек Торренс",
+      "Антон Городецкий",
+      "Борис Гесер",
+      "Рокки Бальбоа",
+      "Джон Смит"
+    ],
+    "emails": [
+      "snow@pisem.local",
+      "president@dka.local",
+      "fish@big.local",
+      "test@pisem.local",
+      "freedom@pisem.local",
+      "rolan@pochta.local",
+      "author@mir.local",
+      "test@lost.loca",
+      "kujo-fan@story.local"
+    ],
+    "avatars": [
+      "user.jpg",
+      "photo.jpg",
+      "awesome-avatar.jpg",
+      "roland.jpg",
+      "smite.jpg",
+      "coffee.jpg"
+    ]
   }
 }
