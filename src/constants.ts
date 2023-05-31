@@ -11,4 +11,5 @@ export enum OfferConstants {
   adultsMax = 10,
   priceMin = 100,
   priceMax = 100000,
+  defaultOfferQty = 25,
 }

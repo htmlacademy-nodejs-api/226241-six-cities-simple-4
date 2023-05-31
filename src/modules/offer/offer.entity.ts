@@ -3,6 +3,7 @@ import typegoose, {
   getModelForClass,
   Ref,
 } from "@typegoose/typegoose";
+import { OfferConstants } from "../../constants.js";
 import {
   CityInterface,
   GoodsType,
@@ -10,8 +11,6 @@ import {
   OfferTypesType,
   UserInteface,
 } from "../../types/types.js";
-// import { OfferType } from '../../types/offer-type.enum.js';
-// import { CategoryEntity } from '../category/category.entity.js';
 import { UserEntity } from "../user/user.entity.js";
 
 const { prop, modelOptions } = typegoose;
@@ -24,10 +23,18 @@ export interface OfferEntity extends defaultClasses.Base {}
   },
 })
 export class OfferEntity extends defaultClasses.TimeStamps {
-  @prop({ required: true, minlength: 10, maxlength: 100 })
+  @prop({
+    required: true,
+    minlength: OfferConstants.nameMinLength,
+    maxlength: OfferConstants.nameMaxLength,
+  })
   public title!: string;
 
-  @prop({ required: true, minlength: 20, maxlength: 1024 })
+  @prop({
+    required: true,
+    minlength: OfferConstants.descMinLength,
+    maxlength: OfferConstants.descMaxLength,
+  })
   public description!: string;
 
   @prop({ required: true })
@@ -45,19 +52,35 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   @prop({ required: true })
   public isPremium!: boolean;
 
-  @prop({ required: true, min: 1, max: 5 })
+  @prop({
+    required: true,
+    min: OfferConstants.ratingMin,
+    max: OfferConstants.ratingMax,
+  })
   public rating!: number;
 
   @prop({ required: true })
   public type!: OfferTypesType;
 
-  @prop({ required: true, min: 1, max: 8 })
+  @prop({
+    required: true,
+    min: OfferConstants.bedroomsMin,
+    max: OfferConstants.bedroomsMax,
+  })
   public bedrooms!: number;
 
-  @prop({ required: true, min: 1, max: 10 })
+  @prop({
+    required: true,
+    min: OfferConstants.adultsMin,
+    max: OfferConstants.adultsMax,
+  })
   public maxAdults!: number;
 
-  @prop({ required: true, min: 100, max: 100000 })
+  @prop({
+    required: true,
+    min: OfferConstants.priceMin,
+    max: OfferConstants.priceMax,
+  })
   public price!: number;
 
   @prop({ required: true })
