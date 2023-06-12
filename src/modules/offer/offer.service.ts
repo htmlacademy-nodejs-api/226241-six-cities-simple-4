@@ -7,7 +7,6 @@ import { LoggerInterface } from "../../core/logger/logger.interface.js";
 import { OfferServiceInterface } from "./offer-service.interface.js";
 import { SortType } from "../../types/sort-type.enum.js";
 import UpdateOfferDto from "./dto/update-offer.dto.js";
-import { OfferConstants } from "../../constants.js";
 
 @injectable()
 export default class OfferService implements OfferServiceInterface {
@@ -28,14 +27,11 @@ export default class OfferService implements OfferServiceInterface {
   public async findById(
     offerId: string
   ): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel
-      .findById(offerId)
-      .populate(["userId", "categories"])
-      .exec();
+    return this.offerModel.findById(offerId).populate(["userId"]).exec();
   }
 
   public async find(): Promise<DocumentType<OfferEntity>[]> {
-    return this.offerModel.find().populate(["userId", "categories"]).exec();
+    return this.offerModel.find().populate(["userId"]).exec();
   }
 
   public async deleteById(
@@ -50,18 +46,7 @@ export default class OfferService implements OfferServiceInterface {
   ): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findByIdAndUpdate(offerId, dto, { new: true })
-      .populate(["userId", "categories"])
-      .exec();
-  }
-
-  public async findByCategoryId(
-    categoryId: string,
-    count?: number
-  ): Promise<DocumentType<OfferEntity>[]> {
-    const limit = count ?? OfferConstants.defaultOfferQty;
-    return this.offerModel
-      .find({ categories: categoryId }, {}, { limit })
-      .populate(["userId", "categories"])
+      .populate(["userId"])
       .exec();
   }
 
@@ -86,7 +71,7 @@ export default class OfferService implements OfferServiceInterface {
       .find()
       .sort({ createdAt: SortType.Down })
       .limit(count)
-      .populate(["userId", "categories"])
+      .populate(["userId"])
       .exec();
   }
 
@@ -97,7 +82,7 @@ export default class OfferService implements OfferServiceInterface {
       .find()
       .sort({ commentCount: SortType.Down })
       .limit(count)
-      .populate(["userId", "categories"])
+      .populate(["userId"])
       .exec();
   }
 }

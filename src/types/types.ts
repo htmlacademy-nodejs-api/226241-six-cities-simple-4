@@ -19,6 +19,13 @@ export interface OfferInterface {
 
 export type OfferTypesType = "apartment" | "house" | "room" | "hotel";
 
+export enum OfferTypesEnum {
+  Apartment = "apartment",
+  House = "house",
+  Room = "room",
+  Hotel = "hotel",
+}
+
 export type GoodsType =
   | "Breakfast"
   | "Air conditioning"

@@ -9,7 +9,6 @@ import {
   GoodsType,
   LocationInterface,
   OfferTypesType,
-  UserInteface,
 } from "../../types/types.js";
 import { UserEntity } from "../user/user.entity.js";
 
@@ -38,7 +37,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public description!: string;
 
   @prop({ required: true })
-  public postDate!: string;
+  public postDate!: Date;
 
   @prop({ required: true })
   public city!: CityInterface;
@@ -87,14 +86,15 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public goods!: GoodsType[];
 
   @prop({ required: true })
-  public host!: UserInteface;
-
-  @prop({ required: true })
   public commentsQty!: number;
 
   @prop({ required: true })
   public location!: LocationInterface;
 
+  @prop({
+    ref: UserEntity,
+    required: true,
+  })
   public userId!: Ref<UserEntity>;
 }
 

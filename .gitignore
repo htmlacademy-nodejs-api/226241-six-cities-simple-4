@@ -5,8 +5,12 @@
 /dist/
 /docs/
 .idea/*
+/mongodb/
+/mocks/
+/upload/*
+!/upload/.gitkeep 
 
 .DS_Store
 coverage
 *.log
-/mongodb/
+*.env
