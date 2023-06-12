@@ -11,5 +11,15 @@ export enum OfferConstants {
   adultsMax = 10,
   priceMin = 100,
   priceMax = 100000,
+  imageArraySize = 6,
   defaultOfferQty = 25,
+  discussedOfferQty = 5,
+  newOfferQty = 5,
 }
+
+// export enum UserConstants {
+//   nameMinLength = 1,
+//   nameMaxLength = 15,
+//   passMinLength = 6,
+//   passMaxLength = 12,
+// }

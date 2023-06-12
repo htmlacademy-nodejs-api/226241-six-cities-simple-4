@@ -25,7 +25,7 @@ export class UserEntity
   public name: string;
 
   @prop({ required: true, default: false })
-  public isPro = false;
+  public isPro: boolean;
 
   @prop({ required: true, default: "" })
   public avatarUrl: string;

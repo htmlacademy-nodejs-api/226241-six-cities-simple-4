@@ -13,6 +13,9 @@ import { StatusCodes } from "http-status-codes";
 import { fillDTO } from "../../core/helpers/index.js";
 import UserRdo from "./rdo/user.rdo.js";
 import LoginUserDto from "./dto/login-user.dto.js";
+import { ValidateDtoMiddleware } from "../../core/middleware/validate-dto.middleware.js";
+import { ValidateObjectIdMiddleware } from "../../core/middleware/validate-objectid.middleware.js";
+import { UploadFileMiddleware } from "../../core/middleware/upload-file.middleware.js";
 
 @injectable()
 export default class UserController extends Controller {
@@ -31,11 +34,25 @@ export default class UserController extends Controller {
       path: "/register",
       method: HttpMethod.Post,
       handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateUserDto)],
     });
     this.addRoute({
       path: "/login",
       method: HttpMethod.Post,
       handler: this.login,
+      middlewares: [new ValidateDtoMiddleware(LoginUserDto)],
+    });
+    this.addRoute({
+      path: "/:userId/avatar",
+      method: HttpMethod.Post,
+      handler: this.uploadAvatar,
+      middlewares: [
+        new ValidateObjectIdMiddleware("userId"),
+        new UploadFileMiddleware(
+          this.configService.get("UPLOAD_DIRECTORY"),
+          "avatar"
+        ),
+      ],
     });
   }
 
@@ -59,7 +76,6 @@ export default class UserController extends Controller {
     );
     this.created(res, fillDTO(UserRdo, result));
   }
-
   public async login(
     {
       body,
@@ -67,7 +83,6 @@ export default class UserController extends Controller {
     _res: Response
   ): Promise<void> {
     const existsUser = await this.userService.findByEmail(body.email);
-
     if (!existsUser) {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
@@ -75,11 +90,16 @@ export default class UserController extends Controller {
         "UserController"
       );
     }
-
     throw new HttpError(
       StatusCodes.NOT_IMPLEMENTED,
       "Not implemented",
       "UserController"
     );
+  }
+
+  public async uploadAvatar(req: Request, res: Response) {
+    this.created(res, {
+      filepath: req.file?.path,
+    });
   }
 }

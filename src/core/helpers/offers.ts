@@ -8,7 +8,7 @@ export function createOffer(offerData: string): OfferInterface {
   const [
     title,
     description,
-    createdDate,
+    postDate,
     cityName,
     cityLatitude,
     cityLongitude,
@@ -21,7 +21,7 @@ export function createOffer(offerData: string): OfferInterface {
     maxAdults,
     price,
     goods,
-    hostId,
+    hostEmail,
     hostName,
     hostIsPro,
     hostAvatarUrl,
@@ -34,7 +34,7 @@ export function createOffer(offerData: string): OfferInterface {
   return {
     title,
     description,
-    postDate: new Date(Number(createdDate)),
+    postDate: new Date(postDate),
     city: {
       name: cityName,
       location: {
@@ -43,16 +43,16 @@ export function createOffer(offerData: string): OfferInterface {
       },
     },
     previewImage: previewImage,
-    images: images.replace(/ */g, "").split(";"),
+    images: images.replace(/ */g, "").split(","),
     isPremium: isPremium.toLowerCase() === "true",
     rating: Number(rating),
     type: type as OfferTypesType,
     bedrooms: Number(bedrooms),
     maxAdults: Number(maxAdults),
     price: Number(price),
-    goods: goods.replace(/ */g, "").split(";") as GoodsType[],
+    goods: goods.trim().split(",") as GoodsType[],
     host: {
-      email: hostId,
+      email: hostEmail,
       name: hostName,
       isPro: hostIsPro.toLowerCase() === "true",
       avatarUrl: hostAvatarUrl,

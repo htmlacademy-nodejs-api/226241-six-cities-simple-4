@@ -23,7 +23,11 @@ export default class RestApplication {
     @inject(AppComponent.ExceptionFilterInterface)
     private readonly exceptionFilter: ExceptionFilterInterface,
     @inject(AppComponent.UserController)
-    private readonly userController: ControllerInterface
+    private readonly userController: ControllerInterface,
+    @inject(AppComponent.OfferController)
+    private readonly offerController: ControllerInterface,
+    @inject(AppComponent.CommentController)
+    private readonly commentController: ControllerInterface
   ) {
     this.expressApplication = express();
   }
@@ -56,14 +60,19 @@ export default class RestApplication {
 
   private async _initRoutes() {
     this.logger.info("Controller initialization…");
-    // this.expressApplication.use("/categories", this.categoryController.router);
     this.expressApplication.use("/users", this.userController.router);
+    this.expressApplication.use("/offers", this.offerController.router);
+    this.expressApplication.use("/comments", this.commentController.router);
     this.logger.info("Controller initialization completed");
   }
 
   private async _initMiddleware() {
     this.logger.info("Global middleware initialization…");
     this.expressApplication.use(express.json());
+    this.expressApplication.use(
+      "/upload",
+      express.static(this.config.get("UPLOAD_DIRECTORY"))
+    );
     this.logger.info("Global middleware initialization completed");
   }
 

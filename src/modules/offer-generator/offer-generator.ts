@@ -20,7 +20,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
   public generate(): string {
     const title = getRandomItem<string>(this.mockData.title);
     const description = getRandomItem<string>(this.mockData.descriptions);
-    const createdDate = dayjs()
+    const postDate = dayjs()
       .subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), "day")
       .toISOString();
     const city = getRandomItem<CityInterface>(this.mockData.cities);
@@ -54,25 +54,30 @@ export default class OfferGenerator implements OfferGeneratorInterface {
       OfferConstants.priceMin,
       OfferConstants.priceMax
     );
-    const goods = getRandomItem<string>(this.mockData.goods);
+    const goods = new Array(generateRandomValue(0, 6))
+      .fill(undefined)
+      .map((_item) => {
+        return getRandomItem<string>(this.mockData.goods);
+      });
+    const uniqueGoods = [...new Set(goods)];
     const hostEmail = getRandomItem<string>(this.mockData.emails);
     const hostName = getRandomItem<string>(this.mockData.users);
     const hostIsPro = Boolean(generateRandomValue(0, 1));
     const hostAvatarUrl = getRandomItem<string>(this.mockData.avatars);
     const commentsQty = generateRandomValue(0, MAX_COMMENTS);
     const locationLatitude = generateRandomValue(
-      city.location.latitude - 5,
-      city.location.latitude + 5
+      city.location.latitude - 0.1,
+      city.location.latitude + 0.1
     );
     const locationLongitude = generateRandomValue(
-      city.location.longitude - 5,
-      city.location.longitude + 5
+      city.location.longitude - 0.1,
+      city.location.longitude + 0.1
     );
 
     return [
       title,
       description,
-      createdDate,
+      postDate,
       cityName,
       cityLatitude,
       cityLongitude,
@@ -84,7 +89,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
       bedrooms,
       maxAdults,
       price,
-      goods,
+      uniqueGoods,
       hostEmail,
       hostName,
       hostIsPro,
