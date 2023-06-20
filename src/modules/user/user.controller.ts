@@ -19,6 +19,7 @@ import { UploadFileMiddleware } from "../../core/middleware/upload-file.middlewa
 import { UnknownRecord } from "../../types/unknown-record.type.js";
 import { JWT_ALGORITHM } from "./user.constant.js";
 import LoggedUserRdo from "./rdo/logged-user.rdo.js";
+import UploadUserAvatarResponse from "./rdo/upload-user-avatar.response.js";
 
 @injectable()
 export default class UserController extends Controller {
@@ -28,9 +29,9 @@ export default class UserController extends Controller {
     @inject(AppComponent.UserServiceInterface)
     private readonly userService: UserServiceInterface,
     @inject(AppComponent.ConfigInterface)
-    private readonly configService: ConfigInterface<RestSchema>
+    protected readonly configService: ConfigInterface<RestSchema>
   ) {
-    super(logger);
+    super(logger, configService);
     this.logger.info("Register routes for UserController…");
 
     this.addRoute({
@@ -111,25 +112,21 @@ export default class UserController extends Controller {
       }
     );
 
-    this.ok(
-      res,
-      fillDTO(LoggedUserRdo, {
-        email: user.email,
-        token,
-      })
-    );
-  }
-
-  public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filepath: req.file?.path,
+    this.ok(res, {
+      ...fillDTO(LoggedUserRdo, user),
+      token,
     });
   }
 
-  public async checkAuthenticate({ user: { email } }: Request, res: Response) {
-    const foundedUser = await this.userService.findByEmail(email);
+  public async uploadAvatar(req: Request, res: Response) {
+    const { userId } = req.params;
+    const uploadFile = { avatarUrl: req.file?.filename };
+    await this.userService.updateById(userId, uploadFile);
+    this.created(res, fillDTO(UploadUserAvatarResponse, uploadFile));
+  }
 
-    if (!foundedUser) {
+  public async checkAuthenticate(req: Request, res: Response) {
+    if (!req.user) {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         "Unauthorized",
@@ -137,6 +134,10 @@ export default class UserController extends Controller {
       );
     }
 
+    const {
+      user: { email },
+    } = req;
+    const foundedUser = await this.userService.findByEmail(email);
     this.ok(res, fillDTO(LoggedUserRdo, foundedUser));
   }
 }

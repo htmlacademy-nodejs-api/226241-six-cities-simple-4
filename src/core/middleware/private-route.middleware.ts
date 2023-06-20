@@ -5,11 +5,11 @@ import HttpError from "../errors/http-error.js";
 
 export class PrivateRouteMiddleware implements MiddlewareInterface {
   public async execute(
-    req: Request,
+    { user }: Request,
     _res: Response,
     next: NextFunction
   ): Promise<void> {
-    if (!req.user) {
+    if (!user) {
       throw new HttpError(
         StatusCodes.UNAUTHORIZED,
         "Unauthorized",
