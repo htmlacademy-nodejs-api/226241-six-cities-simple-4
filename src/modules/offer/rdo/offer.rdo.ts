@@ -1,11 +1,7 @@
 import { Expose, Type } from "class-transformer";
-import {
-  CityInterface,
-  GoodsType,
-  LocationInterface,
-  OfferTypesType,
-} from "../../../types/types.js";
+import { GoodsType, OfferTypesType } from "../../../types/types.js";
 import UserRdo from "../../user/rdo/user.rdo.js";
+import { CityRdo, LocationRdo } from "./city.rdo.js";
 
 // Здесь надо делать исправления
 export default class OfferRdo {
@@ -22,7 +18,8 @@ export default class OfferRdo {
   public postDate!: Date;
 
   @Expose()
-  public city!: CityInterface;
+  @Type(() => CityRdo)
+  public city!: CityRdo;
 
   @Expose()
   public previewImage!: string;
@@ -59,5 +56,5 @@ export default class OfferRdo {
   public commentsQty!: number;
 
   @Expose()
-  public location!: LocationInterface;
+  public location!: LocationRdo;
 }

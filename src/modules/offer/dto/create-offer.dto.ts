@@ -8,7 +8,6 @@ import {
   IsBoolean,
   IsDateString,
   IsInt,
-  IsMongoId,
   IsOptional,
   IsString,
   Max,
@@ -105,7 +104,6 @@ export default class CreateOfferDto {
 
   public goods!: GoodsType[];
 
-  @IsMongoId({ message: "userId field must be valid an id" })
   public userId!: string;
 
   public commentsQty!: number;

@@ -17,6 +17,7 @@ import { ValidateObjectIdMiddleware } from "../../core/middleware/validate-objec
 import { ValidateDtoMiddleware } from "../../core/middleware/validate-dto.middleware.js";
 import { DocumentExistsMiddleware } from "../../core/middleware/document-exists.middleware.js";
 import { OfferConstants } from "../../constants.js";
+import { PrivateRouteMiddleware } from "../../core/middleware/private-route.middleware.js";
 
 type ParamsOfferDetails =
   | {
@@ -51,13 +52,17 @@ export default class OfferController extends Controller {
       path: "/",
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)],
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateOfferDto),
+      ],
     });
     this.addRoute({
       path: "/:offerId",
       method: HttpMethod.Delete,
       handler: this.delete,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware("offerId"),
         new DocumentExistsMiddleware(this.offerService, "Offer", "offerId"),
       ],
@@ -67,6 +72,7 @@ export default class OfferController extends Controller {
       method: HttpMethod.Patch,
       handler: this.update,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware("offerId"),
         new ValidateDtoMiddleware(UpdateOfferDto),
         new DocumentExistsMiddleware(this.offerService, "Offer", "offerId"),
@@ -108,10 +114,10 @@ export default class OfferController extends Controller {
   }
 
   public async create(
-    { body }: Request<UnknownRecord, UnknownRecord, CreateOfferDto>,
+    { body, user }: Request<UnknownRecord, UnknownRecord, CreateOfferDto>,
     res: Response
   ): Promise<void> {
-    const result = await this.offerService.create(body);
+    const result = await this.offerService.create({ ...body, userId: user.id });
     const offer = await this.offerService.findById(result.id);
     this.created(res, fillDTO(OfferRdo, offer));
   }
