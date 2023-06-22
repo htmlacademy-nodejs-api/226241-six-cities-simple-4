@@ -56,23 +56,17 @@ export default class OfferGenerator implements OfferGeneratorInterface {
     );
     const goods = new Array(generateRandomValue(0, 6))
       .fill(undefined)
-      .map((_item) => {
-        return getRandomItem<string>(this.mockData.goods);
-      });
+      .map((_item) => getRandomItem<string>(this.mockData.goods));
     const uniqueGoods = [...new Set(goods)];
     const hostEmail = getRandomItem<string>(this.mockData.emails);
     const hostName = getRandomItem<string>(this.mockData.users);
     const hostIsPro = Boolean(generateRandomValue(0, 1));
     const hostAvatarUrl = getRandomItem<string>(this.mockData.avatars);
     const commentsQty = generateRandomValue(0, MAX_COMMENTS);
-    const locationLatitude = generateRandomValue(
-      city.location.latitude - 0.1,
-      city.location.latitude + 0.1
-    );
-    const locationLongitude = generateRandomValue(
-      city.location.longitude - 0.1,
-      city.location.longitude + 0.1
-    );
+    const locationLatitude =
+      generateRandomValue(-9, 9) * 0.1 + city.location.latitude;
+    const locationLongitude =
+      generateRandomValue(-9, 9) * 0.1 + city.location.longitude;
 
     return [
       title,

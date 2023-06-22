@@ -18,6 +18,10 @@ import { ValidateDtoMiddleware } from "../../core/middleware/validate-dto.middle
 import { DocumentExistsMiddleware } from "../../core/middleware/document-exists.middleware.js";
 import { OfferConstants } from "../../constants.js";
 import { PrivateRouteMiddleware } from "../../core/middleware/private-route.middleware.js";
+import { ConfigInterface } from "../../core/config/config.interface.js";
+import { RestSchema } from "../../core/config/rest.schema.js";
+import { UploadFileMiddleware } from "../../core/middleware/upload-file.middleware.js";
+import UploadImageResponse from "./rdo/upload-image.response.js";
 
 type ParamsOfferDetails =
   | {
@@ -33,9 +37,11 @@ export default class OfferController extends Controller {
     @inject(AppComponent.OfferServiceInterface)
     private readonly offerService: OfferServiceInterface,
     @inject(AppComponent.CommentServiceInterface)
-    private readonly commentService: CommentServiceInterface
+    private readonly commentService: CommentServiceInterface,
+    @inject(AppComponent.ConfigInterface)
+    configService: ConfigInterface<RestSchema>
   ) {
-    super(logger);
+    super(logger, configService);
 
     this.logger.info("Register routes for OfferController…");
     this.addRoute({
@@ -96,6 +102,19 @@ export default class OfferController extends Controller {
       path: "/bundles/discussed",
       method: HttpMethod.Get,
       handler: this.getDiscussed,
+    });
+    this.addRoute({
+      path: "/:offerId/image",
+      method: HttpMethod.Post,
+      handler: this.uploadImage,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware("offerId"),
+        new UploadFileMiddleware(
+          this.configService.get("UPLOAD_DIRECTORY"),
+          "image"
+        ),
+      ],
     });
   }
 
@@ -166,5 +185,12 @@ export default class OfferController extends Controller {
       OfferConstants.discussedOfferQty
     );
     this.ok(res, fillDTO(OfferRdo, discussedOffers));
+  }
+
+  public async uploadImage(req: Request<ParamsOfferDetails>, res: Response) {
+    const { offerId } = req.params;
+    const updateDto = { previewImage: req.file?.filename };
+    await this.offerService.updateById(offerId, updateDto);
+    this.created(res, fillDTO(UploadImageResponse, { updateDto }));
   }
 }

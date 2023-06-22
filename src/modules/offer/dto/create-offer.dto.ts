@@ -8,7 +8,6 @@ import {
   IsBoolean,
   IsDateString,
   IsInt,
-  IsOptional,
   IsString,
   Max,
   MaxLength,
@@ -39,11 +38,6 @@ export default class CreateOfferDto {
 
   @Type(() => CityDto)
   public city!: CityDto;
-
-  @IsOptional()
-  @IsString({ message: "image is required" })
-  @MaxLength(256, { message: "Too short for field «image»" })
-  public previewImage!: string;
 
   @IsArray()
   @ArrayMinSize(OfferConstants.imageArraySize, {
