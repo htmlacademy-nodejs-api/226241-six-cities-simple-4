@@ -1,4 +1,4 @@
-import { IsEmail, IsString, Length } from "class-validator";
+import { IsBoolean, IsEmail, IsString, Length } from "class-validator";
 import { UserConstants } from "../user.constant.js";
 
 export default class CreateUserDto {
@@ -8,7 +8,7 @@ export default class CreateUserDto {
   @IsString({ message: "name is required" })
   public name!: string;
 
-  // @isBoolean()
+  @IsBoolean()
   public isPro!: boolean;
 
   @Length(UserConstants.passMinLength, UserConstants.passMaxLength, {
