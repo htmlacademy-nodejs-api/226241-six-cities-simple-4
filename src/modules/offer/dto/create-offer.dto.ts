@@ -61,10 +61,10 @@ export default class CreateOfferDto {
   })
   public rating!: number;
 
-  @MinLength(OfferConstants.nameMinLength, {
+  @MinLength(OfferConstants.offerTypeMin, {
     message: `Minimum offer type length must be ${OfferConstants.offerTypeMin}`,
   })
-  @MaxLength(OfferConstants.nameMaxLength, {
+  @MaxLength(OfferConstants.offerTypeMax, {
     message: `Maximum offer type length must be ${OfferConstants.offerTypeMax}`,
   })
   public type!: OfferTypesType;
